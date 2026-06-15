@@ -51,9 +51,31 @@ function ProjectCard({ project }: { project: Project }) {
       </div>
 
       <h3 className="text-xl font-bold">{project.title}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-muted">{project.summary}</p>
 
-      <ul className="mt-4 space-y-2">
+      {project.problem && (
+        <p className="mt-3 text-sm leading-relaxed">
+          <span className="font-bold text-algeria-red dark:text-algeria-red-light">
+            المشكل:{" "}
+          </span>
+          <span className="text-muted">{project.problem}</span>
+        </p>
+      )}
+      {project.goal && (
+        <p className="mt-2 text-sm leading-relaxed">
+          <span className="font-bold text-algeria-green dark:text-algeria-green-light">
+            الهدف:{" "}
+          </span>
+          <span className="text-muted">{project.goal}</span>
+        </p>
+      )}
+
+      {project.commitmentLabel && (
+        <p className="mt-4 text-sm font-bold text-gold-dark dark:text-gold-light">
+          {project.commitmentLabel}:
+        </p>
+      )}
+
+      <ul className={`${project.commitmentLabel ? "mt-2" : "mt-4"} space-y-2`}>
         {project.points.map((p) => (
           <li key={p} className="flex items-start gap-2 text-sm text-muted">
             <ChevronLeft
@@ -98,7 +120,7 @@ export function StrategicProjects() {
           initial="hidden"
           whileInView="show"
           viewport={viewportOnce}
-          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
           {projects.map((project) => (
             <ProjectCard key={project.id} project={project} />
